@@ -42,22 +42,16 @@ bool ImportCell0Ds(PoligonalMesh& mesh)
 
 	listLines.pop_front(); //elimino la prima riga
 
-	// for (const std::string& val:listLines)
-	// {
-		// std::cout<<val<<" "<<endl;
-	// }
-	// cout <<listLines.size()<<endl;   //mi assicuro di stampare quello che mi interessa
-
-	for (std::string& line : listLines) {
+	for (std::string& line : listLines) 
+	{
         std::replace(line.begin(), line.end(), ';', ' ');  // Sostituisce i ';' con uno spazio
     }
-	
+	std::cout<<"La lista in cui salvo i valori del file Cell0Ds è: "<<endl;
 	for (const std::string& val:listLines)
 	{
 		std::cout<<val<<" "<<endl;
 	}
-	cout <<listLines.size()<<endl;   //mi assicuro di stampare quello che mi interessa
-	
+
 	//adesso incomincio a creare un'istanza da PoligonalMesh, andando quindi a definire i suoi attributi
     mesh.NumCell0Ds = listLines.size();    //il numero di celle è dato dalla dimensione dalla lista
 
@@ -101,14 +95,24 @@ bool ImportCell0Ds(PoligonalMesh& mesh)
 	
     }
 	//mi assicuro di aver ottenuto quello che mi aspetto
-	unsigned int dimensione= mesh.Cell0DsId.size();
-	cout<<dimensione<<endl;
-	for (int valore:mesh.Cell0DsId)
+	std::cout<<"Gli ID dei punti sono: "<<endl;
+	for (int valore:mesh.Cell0DsId) //gli Id sono effettivamente quelli che mi aspetto
 	{
 		std::cout<<valore <<" ";
 	}
-		
-    return true;
+	std::cout<<" "<<endl;
+	//proviamo a stampare i marker
+	for (const auto& [marker, ids] : mesh.MarkerCell0Ds) {
+    std::cout << marker << ": [";
+		for (auto it = ids.begin(); it != ids.end(); ++it) {
+			std::cout << *it;
+			if (std::next(it) != ids.end())
+				std::cout << ", ";
+    }
+    std::cout << "]\n";
+}
+	
+	return true;
 }
 // ***************************************************************************
 
@@ -134,7 +138,10 @@ bool ImportCell1Ds(PoligonalMesh& mesh)
 
     // togliamo la prima riga che è inutile ai nostri scopi
     listLines.pop_front();
-
+	for (std::string& line : listLines) 
+	{
+        std::replace(line.begin(), line.end(), ';', ' ');  // Sostituisce i ';' con uno spazio
+    }
     mesh.NumCell1Ds = listLines.size();  //il numero di segmneti è uguale al numero di elementi della lista
 
     if (mesh.NumCell1Ds == 0)  //se il numero di celle è pari a 0, non fare nulla 
@@ -174,7 +181,23 @@ bool ImportCell1Ds(PoligonalMesh& mesh)
             }
         }
     }
+	//mi assicuro di aver ottenuto quello che mi aspetto
+	std::cout<<"Gli ID dei segmenti sono: "<<endl;
+	for (int valore:mesh.Cell0DsId) //gli Id sono effettivamente quelli che mi aspetto
+	{
+		std::cout<<valore <<" ";
+	}
+	std::cout<<" "<<endl;
 
+	for (const auto& [marker, ids] : mesh.MarkerCell1Ds) {
+    std::cout << marker << ": [";
+		for (auto it = ids.begin(); it != ids.end(); ++it) {
+			std::cout << *it;
+			if (std::next(it) != ids.end())
+				std::cout << ", ";
+    }
+    std::cout << "]\n";
+}
     return true;
 }
 // ***************************************************************************
@@ -200,7 +223,10 @@ bool ImportCell2Ds(PoligonalMesh& mesh)
 
     // rimuovo la prima riga che non mi serve per i nostri scopi
     listLines.pop_front();
-
+	for (std::string& line : listLines) 
+	{
+        std::replace(line.begin(), line.end(), ';', ' ');  // Sostituisce i ';' con uno spazio
+    }
     mesh.NumCell2Ds = listLines.size(); //il numero di celle è pari alla lunghezza della stringa
 
     if (mesh.NumCell2Ds == 0)
@@ -247,47 +273,14 @@ bool ImportCell2Ds(PoligonalMesh& mesh)
 		mesh.Cell2DsEdges.push_back(edges);			
 		
     }
-
+	//mi assicuro di aver ottenuto quello che mi aspetto
+	std::cout<<"Gli ID dei poligoni sono: "<<endl;
+	for (int valore:mesh.Cell0DsId) //Gli ID sono effettivamente quelli che mi aspetto
+	{
+		std::cout<<valore <<" ";
+	}
+	std::cout<<" "<<endl;
 	return true;
 }
 // ***************************************************************************
 }
-
-    // mesh.Cell2DsId.resize(mesh.NumCell2Ds);  //mi assicuro di avere abbastanza capacità per memorizzare tutti i dati in ciascun vettore
-	// mesh.Cell2DsMarker.resize(mesh.NumCell2Ds);
-	// mesh.Cell2DsNumVertices.resize(mesh.NumCell2Ds); 
-    // mesh.Cell2DsVertices.resize(mesh.NumCell2Ds);
-    // mesh.Cell2DsNumEdges.resize(mesh.NumCell2Ds);
-	// mesh.Cell2DsEdges.resize(mesh.NumCell2Ds);
-	// unsigned int i=0;
-    // for (const string& line : listLines)  //ciclo sugli elementi della stringa
-    // {
-        // istringstream converter(line);
-
-        // unsigned int id;
-        // converter >>  id; //assegno alla variabile id il suo valore letto dal file
-        // mesh.Cell2DsId[i]=id; //metto il valore letto nel vettore riservato agli ID
-		
-		// unsigned int marker; 
-		// converter >> marker; //assegno alla variabile marker il suo valore letto dal file
-		// mesh.Cell2DsMarker[i]= marker; //metto il valore letto nel vettore riservato ai marker
-		
-		// unsigned int numVertices;  
-		// converter >> numVertices; //assegno alla variabile numVertices il suo valore letto dal file
-		// mesh.Cell2DsNumVertices[i]=numVertices;//metto il valore letto nel vettore riservato ai numeri di vertici
-		
-		// vector<unsigned int> vertices(numVertices);  //inizializzo un vettore contenente numVertices[i] elementi
-		// for(unsigned int j = 0; j < numVertices; j++)
-			// converter >> vertices[j];
-		// mesh.Cell2DsVertices[i]=vertices; //riempo il vettore con i suoi valori
-
-		// unsigned int numEdges;
-		// converter >> numEdges; //assegno alla variabile numEdges il suo valore letto dal file
-		// mesh.Cell2DsNumEdges[i]=numEdges; //metto il valore letto nel vettore riservato al numero di lati
-		
-		// vector<unsigned int> edges(numEdges);
-		// for(unsigned int j = 0; j < numEdges; j++)
-			// converter >> edges[j];
-		// mesh.Cell2DsEdges[i]=edges;			
-		// i++;	
-    // }

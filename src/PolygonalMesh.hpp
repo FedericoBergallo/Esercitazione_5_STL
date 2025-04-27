@@ -24,9 +24,9 @@ struct PoligonalMesh   //creo una struttura chimata poligonalMesh
     std::vector<unsigned int> Cell2DsId = {};//definisco un vettore che mi memorizza gli ID delle varie celle
 	std::vector<unsigned int> Cell2DsMarker = {};
 	std::vector<unsigned int> Cell2DsNumVertices={};//inizializzo un vettore che mi permette di memorizzare
-    std::vector<vector<unsigned int>> Cell2DsVertices = {}; ///< Cell2D Vertices indices, size 1 x NumberCell2DVertices[NumberCell2D]
+    std::vector<vector<unsigned int>> Cell2DsVertices = {}; 
     std::vector<unsigned int> Cell2DsNumEdges = {};
-	std::vector<vector<unsigned int>> Cell2DsEdges = {}; ///< Cell2D Cell1D indices, size 1 x NumberCell2DEdges[NumberCell2D]
+	std::vector<vector<unsigned int>> Cell2DsEdges = {}; 
 };
 
 }

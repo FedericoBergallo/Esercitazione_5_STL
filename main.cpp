@@ -68,3 +68,8 @@ int main()
 
     return 0;
 }
+//convertendo  i file .inp ottenuti in file .vtu, ottengo un immagine che, a meno di colori, è coincidente a quella fornita.
+//Questo dimostra qualitativamente che le aree dei poligoni non sono mai nulle e non ci sono segmenti di lunghezza nulla.
+
+//Nel codice sono anche presenti delle stampe di prova che mostrano che ho letto e memorizzato i dati dai file csv nel modo corretto
+//In particolare i marker sono memorizzati nel modo corretto
